@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
 
-public class RegisterJFrame extends JFrame {
+public class RegisterFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField nameTxt;
@@ -25,7 +25,7 @@ public class RegisterJFrame extends JFrame {
 	/**
 	 * 用户注册界面
 	 */
-	public RegisterJFrame() {
+	public RegisterFrame() {
 		setTitle("用户注册");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

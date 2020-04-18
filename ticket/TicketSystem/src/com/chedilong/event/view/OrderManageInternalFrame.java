@@ -16,6 +16,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Vector;
 
@@ -52,7 +53,7 @@ public class OrderManageInternalFrame extends JInternalFrame {
 		JButton btnNewButton_1 = new JButton("取消订单");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				orderDeletePerformed();
+				orderDeletePerformed(loginUser);
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -119,6 +120,8 @@ public class OrderManageInternalFrame extends JInternalFrame {
 		
 		introductionTxt = new JTextArea();
 		introductionTxt.setEditable(false);
+		
+		JLabel label = new JLabel("元");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -136,16 +139,21 @@ public class OrderManageInternalFrame extends JInternalFrame {
 								.addComponent(competitionIDTxt, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
 								.addComponent(homeFieldTxt)
 								.addComponent(priceTxt))
-							.addGap(39)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblNewLabel_1)
-									.addGap(18)
-									.addComponent(timeTxt, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
+									.addGap(39)
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblNewLabel_1)
+											.addGap(18)
+											.addComponent(timeTxt, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblNewLabel_3)
+											.addGap(18)
+											.addComponent(visitingFieldTxt, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))
 								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblNewLabel_3)
-									.addGap(18)
-									.addComponent(visitingFieldTxt, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(label))))
 						.addComponent(introductionTxt, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE))
 					.addContainerGap())
 		);
@@ -167,12 +175,13 @@ public class OrderManageInternalFrame extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_4)
-						.addComponent(priceTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(priceTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_5)
 						.addComponent(introductionTxt, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(42, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		
@@ -187,7 +196,7 @@ public class OrderManageInternalFrame extends JInternalFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"\u8D5B\u4E8Bid", "\u4E3B\u573A\u6218\u961F", "\u5BA2\u573A\u6218\u961F", "\u7B80\u4ECB", "\u65F6\u95F4", "\u4EF7\u683C"
+				"\u8D5B\u4E8Bid", "\u4E3B\u573A\u6218\u961F", "\u5BA2\u573A\u6218\u961F", "\u7B80\u4ECB", "\u65F6\u95F4", "\u4EF7\u683C(\u5143)"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
@@ -207,17 +216,37 @@ public class OrderManageInternalFrame extends JInternalFrame {
 	/**
 	 * 用户取消赛事订单
 	 */
-	private void orderDeletePerformed() {
+	private void orderDeletePerformed(User loginUser) {
 		//判断用户是否选择比赛
 		if(StringJudgeUtil.isEmpty(competitionIDTxt.getText())){
 			JOptionPane.showMessageDialog(null, "请选择你要取消预约的比赛！");
 			return;
 		}
+		//确认窗口
 		int sign = JOptionPane.showConfirmDialog(null,"确认取消预定该赛事吗？");
 		if(sign == 1||sign == 2){
 			return;
 		}
-		
+		//封装用户要取消的比赛信息
+		Competition competitionSelected = new Competition(Integer.parseInt(competitionIDTxt.getText()),homeFieldTxt.getText(),
+				                          visitingFieldTxt.getText(),introductionTxt.getText(),timeTxt.getText(),
+				                          new BigDecimal(priceTxt.getText()));
+		OrderController orderController = new OrderController();
+		User result = orderController.orderCancel(loginUser,competitionSelected);
+		if(result == null){
+			JOptionPane.showMessageDialog(null, "取消失败！");
+		}else{
+			JOptionPane.showMessageDialog(null, "取消成功！");
+			//刷新表格订单信息
+			initCompetitionTable(loginUser);
+			//清空详情框
+			competitionIDTxt.setText(null);
+			homeFieldTxt.setText(null);
+			visitingFieldTxt.setText(null);
+			introductionTxt.setText(null);
+			timeTxt.setText(null);
+			priceTxt.setText(null);
+		}
 	}
 
 	/**
@@ -235,8 +264,15 @@ public class OrderManageInternalFrame extends JInternalFrame {
 	 * 将用户选择的赛事订单添加到详情框中
 	 */
 	private void competitionSelectPressed() {
-		// TODO Auto-generated method stub
-		
+		//获取选中的行
+		int row = competitionTable.getSelectedRow();
+		//将行信息添加到修改框中
+		competitionIDTxt.setText(String.valueOf(competitionTable.getValueAt(row,0)));
+		homeFieldTxt.setText((String)competitionTable.getValueAt(row,1));
+		visitingFieldTxt.setText((String)competitionTable.getValueAt(row,2));
+		introductionTxt.setText((String)competitionTable.getValueAt(row,3));
+		timeTxt.setText((String)competitionTable.getValueAt(row,4));
+		priceTxt.setText(String.valueOf(competitionTable.getValueAt(row,5)));
 	}
 
 	/**
@@ -245,10 +281,11 @@ public class OrderManageInternalFrame extends JInternalFrame {
 	private void initCompetitionTable(User loginUser){
 		OrderController orderController = new OrderController();
 		List<Competition> competitionList = orderController.orderSearch(loginUser.getId());
+		DefaultTableModel dtm = (DefaultTableModel) competitionTable.getModel();
 		if(competitionList == null){
 			JOptionPane.showMessageDialog(null, "您目前暂未预约任何比赛！");
+			dtm.setRowCount(0);
 		}else{
-			DefaultTableModel dtm = (DefaultTableModel) competitionTable.getModel();
 			dtm.setRowCount(0);
 			//将返回结果添加到表格中
 			for (int i = 0; i < competitionList.size(); i++) {
@@ -263,5 +300,4 @@ public class OrderManageInternalFrame extends JInternalFrame {
 			}
 		}
 	}
-
 }

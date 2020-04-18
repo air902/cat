@@ -64,4 +64,24 @@ public class OrderServiceImpl implements OrderService {
             return competitionList;
         }
     }
+
+    /**
+     * 用户取消赛事
+     * @param loginUser
+     * @param competition
+     * @return
+     */
+    @Override
+    public User orderCancel(User loginUser, Competition competition) {
+        OrderDao orderDao = new OrderDaoImpl();
+        //退还用户购票钱款
+        BigDecimal money = loginUser.getBalance().add(competition.getPrice());
+        loginUser.setBalance(money);
+        Boolean result = orderDao.orderCancel(loginUser.getId(),loginUser.getBalance(),competition.getId());
+        if(result){
+            return loginUser;
+        }else{
+            return null;
+        }
+    }
 }

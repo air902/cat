@@ -29,4 +29,13 @@ public interface OrderDao {
      * @return
      */
     Boolean isReserved(Integer userID,Integer competitionID);
+
+    /**
+     * 用户取消订单信息
+     * @param userID
+     * @param balance 用户预定赛事后余额
+     * @param competitionID
+     * @return
+     */
+    Boolean orderCancel(Integer userID, BigDecimal balance,Integer competitionID);
 }

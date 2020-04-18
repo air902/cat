@@ -11,4 +11,26 @@ public interface CompetitionService {
      * @return
      */
     List<Competition> competitionSearch(String teamName);
+
+    /**
+     * 添加赛事信息
+     * @param competitionTxt
+     * @return
+     */
+    Boolean competitionAdd(Competition competitionTxt);
+
+    /**
+     * 更新赛事信息
+     * @param competitionTxt
+     * @return
+     */
+    Competition competitionUpdate(Competition competitionTxt);
+
+    /**
+     * 删除赛事信息
+     * @param competitionId
+     * @return
+     */
+    Boolean competitionDelete(Integer competitionId);
+
 }

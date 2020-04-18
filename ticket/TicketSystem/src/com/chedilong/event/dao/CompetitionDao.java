@@ -2,6 +2,7 @@ package com.chedilong.event.dao;
 
 import com.chedilong.event.entity.Competition;
 
+import java.sql.Connection;
 import java.util.List;
 
 public interface CompetitionDao {
@@ -18,4 +19,25 @@ public interface CompetitionDao {
      * @return
      */
     List<Competition> competitionSearch(List<Integer> competitionIDList);
+
+    /**
+     * 添加赛事信息
+     * @param competitionTxt
+     * @return
+     */
+    Boolean competitionAdd(Competition competitionTxt);
+
+    /**
+     * 更改赛事信息
+     * @param competitionTxt
+     * @return
+     */
+    Competition competitionUpdate(Competition competitionTxt);
+
+    /**
+     * 删除赛事信息
+     * @param competitionId
+     * @return
+     */
+    Boolean competitionDelete(Integer competitionId);
 }

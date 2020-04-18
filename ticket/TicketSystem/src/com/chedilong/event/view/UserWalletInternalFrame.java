@@ -140,6 +140,7 @@ public class UserWalletInternalFrame extends JInternalFrame {
 				JOptionPane.showMessageDialog(null, "充值失败！");
 			}
 		}else{
+			JOptionPane.showMessageDialog(null, "请输入正确的金额，每次充值不少于1元，不超过9999.99元！");
 			return;
 		}
 //		Boolean result = userController.userRecharge(loginUser,money);

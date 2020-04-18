@@ -1,7 +1,6 @@
 package com.chedilong.event.dao.impl;
 
 import com.chedilong.event.dao.OrderDao;
-import com.chedilong.event.entity.Order;
 import com.chedilong.event.util.DatabaseConnectionUtil;
 
 import java.math.BigDecimal;
@@ -13,51 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
-    /**
-     * 添加用户预订信息
-     * @param userID
-     * @param balance 用户预定赛事后余额
-     * @param competitionID
-     * @return
-     */
-    @Override
-    public Boolean orderAdd(Integer userID, BigDecimal balance,Integer competitionID) {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        //往赛事表中添加用户预订信息
-        String sql1 = "INSERT INTO `order` (`userID`,`competitionID`) VALUES(?,?)";
-        //修改用户账户余额
-        String sql2 = "update user set balance = ? where id = ?";
-        try {
-            con = DatabaseConnectionUtil.getConnection();
-            con.setAutoCommit(false);
-            //往赛事表中添加用户预订信息
-            pstmt = con.prepareStatement(sql1);
-            pstmt.setInt(1,userID);
-            pstmt.setInt(2, competitionID);
-            pstmt.executeUpdate();
-            //修改用户账户余额
-            pstmt = con.prepareStatement(sql2);
-            pstmt.setBigDecimal(1,balance);
-            pstmt.setInt(2, userID);
-            pstmt.executeUpdate();
-            con.commit();
-            return true;
-        } catch (SQLException e) {
-            //发生异常，回滚事务
-            if(con != null){
-                try {
-                    con.rollback();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            e.printStackTrace();
-            return false;
-        }finally {
-            DatabaseConnectionUtil.close(con,pstmt,null);
-        }
-    }
 
     /**
      * 查询用户所有订单信息
@@ -99,7 +53,7 @@ public class OrderDaoImpl implements OrderDao {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String sql = "select * from2 `order` where `userID` = ? and `competitionID` = ?";
+        String sql = "select * from `order` where `userID` = ? and `competitionID` = ?";
         try {
             con = DatabaseConnectionUtil.getConnection();
             pstmt = con.prepareStatement(sql);
@@ -116,6 +70,81 @@ public class OrderDaoImpl implements OrderDao {
             return true;
         }finally {
             DatabaseConnectionUtil.close(con,pstmt,rs);
+        }
+    }
+
+    /**
+     * 添加用户预订信息
+     * @param userID
+     * @param balance 用户预定赛事后余额
+     * @param competitionID
+     * @return
+     */
+    @Override
+    public Boolean orderAdd(Integer userID, BigDecimal balance,Integer competitionID) {
+        //往赛事表中添加用户预订信息
+        String sql1 = "INSERT INTO `order` (`userID`,`competitionID`) VALUES(?,?)";
+        //修改用户账户余额
+        String sql2 = "update user set balance = ? where id = ?";
+        return orderManage(sql1, sql2, userID, balance, competitionID);
+    }
+
+    /**
+     * 用户取消订单信息
+     * @param userID
+     * @param balance       用户预定赛事后余额
+     * @param competitionID
+     * @return
+     */
+    @Override
+    public Boolean orderCancel(Integer userID, BigDecimal balance, Integer competitionID) {
+        //在赛事表中删除用户预订信息
+        String sql1 = "DELETE FROM `order` where`userID` = ? and `competitionID` = ?";
+        //修改用户账户余额
+        String sql2 = "update user set balance = ? where id = ?";
+        return orderManage(sql1, sql2, userID, balance, competitionID);
+    }
+
+    /**
+     * 用户订单增加删除操作
+     * @param sql1
+     * @param sql2
+     * @param userID
+     * @param balance
+     * @param competitionID
+     * @return
+     */
+    private Boolean orderManage(String sql1,String sql2,Integer userID, BigDecimal balance, Integer competitionID){
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try {
+            con = DatabaseConnectionUtil.getConnection();
+            con.setAutoCommit(false);
+            //在赛事表中修改用户预订信息
+            pstmt = con.prepareStatement(sql1);
+            pstmt.setInt(1,userID);
+            pstmt.setInt(2, competitionID);
+            pstmt.executeUpdate();
+            //修改用户账户余额
+            pstmt = con.prepareStatement(sql2);
+            pstmt.setBigDecimal(1,balance);
+            pstmt.setInt(2, userID);
+            pstmt.executeUpdate();
+            con.commit();
+            return true;
+        } catch (SQLException e) {
+            //发生异常，回滚事务
+            if(con != null){
+                try {
+                    con.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+            return false;
+        }finally {
+            DatabaseConnectionUtil.close(con,pstmt,null);
         }
     }
 }

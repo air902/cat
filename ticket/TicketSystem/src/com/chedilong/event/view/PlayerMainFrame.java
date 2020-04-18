@@ -1,4 +1,4 @@
-package windows;
+package com.chedilong.event.view;
 
 import com.chedilong.event.entity.User;
 import com.chedilong.event.view.GamesHallInternalFrame;
@@ -21,7 +21,7 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PlyerMainJFrame extends JFrame {
+public class PlayerMainFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JDesktopPane desktopPane;
@@ -29,7 +29,7 @@ public class PlyerMainJFrame extends JFrame {
 	/**
 	 * 召唤师玩家主界面
 	 */
-	public PlyerMainJFrame(User loginUser) {
+	public PlayerMainFrame(User loginUser) {
 		setTitle("英雄联盟赛事票务管理系统欢迎您");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

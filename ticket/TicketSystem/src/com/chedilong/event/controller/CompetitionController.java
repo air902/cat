@@ -17,4 +17,37 @@ public class CompetitionController {
         List<Competition> competitions = competitionService.competitionSearch(teamName);
         return competitions;
     }
+
+    /**
+     * 添加赛事信息
+     * @param competitionTxt
+     * @return
+     */
+    public Boolean competitionAdd(Competition competitionTxt){
+        CompetitionService competitionService = new CompetitionServiceImpl();
+        Boolean result = competitionService.competitionAdd(competitionTxt);
+        return  result;
+    }
+
+    /**
+     * 更新赛事信息
+     * @param competitionTxt
+     * @return
+     */
+    public Competition competitionUpdate(Competition competitionTxt){
+        CompetitionService competitionService = new CompetitionServiceImpl();
+        Competition result = competitionService.competitionUpdate(competitionTxt);
+        return result;
+    }
+
+    /**
+     * 删除赛事信息
+     * @param competitionId
+     * @return
+     */
+    public Boolean competitionDelete(Integer competitionId){
+        CompetitionService competitionService = new CompetitionServiceImpl();
+        Boolean result = competitionService.competitionDelete(competitionId);
+        return result;
+    }
 }

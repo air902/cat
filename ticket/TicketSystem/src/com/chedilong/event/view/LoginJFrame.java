@@ -163,9 +163,11 @@ public class LoginJFrame extends JFrame {
 			return;
 		}else if(loginUser.getStatus().equals("召唤师玩家")){
 			dispose();
-			new windows.PlyerMainJFrame(loginUser).setVisible(true);
+			new PlayerMainFrame(loginUser).setVisible(true);
 		}else if(loginUser.getStatus().equals("管理员")){
-			JOptionPane.showMessageDialog(null, "管理员登录成功！");
+			dispose();
+			new AdministratorMainFrame(loginUser).setVisible(true);
+
 		}
 	}
 
@@ -173,6 +175,6 @@ public class LoginJFrame extends JFrame {
 	 * 打开注册窗口
 	 */
 	private void userRegisterPerformed() {
-		new RegisterJFrame().setVisible(true);
+		new RegisterFrame().setVisible(true);
 	}
 }

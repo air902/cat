@@ -20,4 +20,12 @@ public interface OrderService {
      * @return
      */
     List<Competition> orderSearch(Integer userId);
+
+    /**
+     * 用户取消赛事
+     * @param loginUser
+     * @param competition
+     * @return
+     */
+    User orderCancel(User loginUser, Competition competition);
 }

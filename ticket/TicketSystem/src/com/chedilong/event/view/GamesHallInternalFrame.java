@@ -150,43 +150,50 @@ public class GamesHallInternalFrame extends JInternalFrame {
 		priceTxt = new JTextField();
 		priceTxt.setEditable(false);
 		priceTxt.setColumns(10);
+		
+		JLabel lblNewLabel_7 = new JLabel("元");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblNewLabel_1)
-									.addGap(27)
-									.addComponent(competitionIDTxt, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblNewLabel_3)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(priceTxt, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-										.addComponent(homeFieldTxt))))
-							.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblNewLabel_2)
-									.addGap(18)
-									.addComponent(timeTxt, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblNewLabel_4)
-									.addGap(18)
-									.addComponent(visitingFieldTxt)))
-							.addContainerGap())
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 							.addComponent(lblNewLabel_5)
 							.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
 							.addComponent(introductionTxt, GroupLayout.PREFERRED_SIZE, 425, GroupLayout.PREFERRED_SIZE)
 							.addGap(22))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblNewLabel_6)
-							.addContainerGap(457, Short.MAX_VALUE))))
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addComponent(lblNewLabel_1)
+										.addGap(27)
+										.addComponent(competitionIDTxt, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_panel.createSequentialGroup()
+										.addComponent(lblNewLabel_3)
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+											.addComponent(priceTxt, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+											.addComponent(homeFieldTxt))))
+								.addComponent(lblNewLabel_6))
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblNewLabel_2)
+											.addGap(18)
+											.addComponent(timeTxt, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblNewLabel_4)
+											.addGap(18)
+											.addComponent(visitingFieldTxt)))
+									.addContainerGap())
+								.addGroup(gl_panel.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblNewLabel_7)
+									.addContainerGap())))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -206,8 +213,9 @@ public class GamesHallInternalFrame extends JInternalFrame {
 					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_6)
-						.addComponent(priceTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+						.addComponent(priceTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_7))
+					.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(introductionTxt, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_5))
@@ -286,10 +294,10 @@ public class GamesHallInternalFrame extends JInternalFrame {
 		int row = competitionTable.getSelectedRow();
 		//将行信息添加到赛事详情框中
 		competitionIDTxt.setText(String.valueOf(competitionTable.getValueAt(row,0)));
-		timeTxt.setText((String)competitionTable.getValueAt(row,1));
-		homeFieldTxt.setText((String)competitionTable.getValueAt(row,2));
-		visitingFieldTxt.setText((String)competitionTable.getValueAt(row,3));
-		introductionTxt.setText((String)competitionTable.getValueAt(row,4));
+		homeFieldTxt.setText((String)competitionTable.getValueAt(row,1));
+		visitingFieldTxt.setText((String)competitionTable.getValueAt(row,2));
+		introductionTxt.setText((String)competitionTable.getValueAt(row,3));
+		timeTxt.setText((String)competitionTable.getValueAt(row,4));
 		priceTxt.setText(String.valueOf(competitionTable.getValueAt(row,5)));
 	}
 

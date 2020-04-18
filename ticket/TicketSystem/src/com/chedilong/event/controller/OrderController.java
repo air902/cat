@@ -5,7 +5,6 @@ import com.chedilong.event.entity.User;
 import com.chedilong.event.service.OrderService;
 import com.chedilong.event.service.impl.OrderServiceImpl;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class OrderController {
@@ -30,5 +29,17 @@ public class OrderController {
         OrderService orderService = new OrderServiceImpl();
         List<Competition> competitionList = orderService.orderSearch(userId);
         return competitionList;
+    }
+
+    /**
+     * 用户订单取消
+     * @param loginUser
+     * @param competition
+     * @return
+     */
+    public User orderCancel(User loginUser,Competition competition){
+        OrderService orderService = new OrderServiceImpl();
+        User result = orderService.orderCancel(loginUser,competition);
+        return result;
     }
 }

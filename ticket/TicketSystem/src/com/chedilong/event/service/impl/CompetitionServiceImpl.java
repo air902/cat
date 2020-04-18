@@ -19,4 +19,41 @@ public class CompetitionServiceImpl implements CompetitionService {
         List<Competition> competitions = competitionDAo.competitionSearch(teamName);
         return competitions;
     }
+
+    /**
+     * 添加赛事信息
+     * @param competitionTxt
+     * @return
+     */
+    @Override
+    public Boolean competitionAdd(Competition competitionTxt) {
+        CompetitionDao competitionDao = new CompetitionDaoImpl();
+        Boolean result = competitionDao.competitionAdd(competitionTxt);
+        return result;
+    }
+
+    /**
+     * 更新赛事信息
+     * @param competitionTxt
+     * @return
+     */
+    @Override
+    public Competition competitionUpdate(Competition competitionTxt) {
+        CompetitionDao competitionDao = new CompetitionDaoImpl();
+        Competition result = competitionDao.competitionUpdate(competitionTxt);
+        return result;
+    }
+
+    /**
+     * 删除赛事信息
+     *
+     * @param competitionId
+     * @return
+     */
+    @Override
+    public Boolean competitionDelete(Integer competitionId) {
+        CompetitionDao competitionDao = new CompetitionDaoImpl();
+        Boolean result = competitionDao.competitionDelete(competitionId);
+        return result;
+    }
 }
