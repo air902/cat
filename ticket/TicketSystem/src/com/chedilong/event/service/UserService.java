@@ -22,10 +22,10 @@ public interface UserService {
     /**
      * 用户个人信息修改
      * @param userTxt 修改后的用户信息
-     * @param loginuser 修改前的用户信息
+     * @param loginUser 修改前的用户信息
      * @return
      */
-    User inFoUpdate(User userTxt,User loginuser);
+    User inFoUpdate(User userTxt,User loginUser);
 
     /**
      * 用户余额充值

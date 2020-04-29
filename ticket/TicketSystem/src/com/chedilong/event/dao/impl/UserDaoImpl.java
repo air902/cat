@@ -6,6 +6,8 @@ import com.chedilong.event.util.DatabaseConnectionUtil;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDaoImpl  implements UserDao {
 
@@ -142,9 +144,10 @@ public class UserDaoImpl  implements UserDao {
         try {
             con = DatabaseConnectionUtil.getConnection();
             pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, userTxt.getName());
-            pstmt.setString(2,userTxt.getPassword());
-            pstmt.setInt(3,userTxt.getId());
+            pstmt.setObject(1, userTxt.getName());
+            pstmt.setObject(2,userTxt.getPassword());
+            pstmt.setObject(3,userTxt.getId());
+            System.out.println("没有问题");
             pstmt.executeUpdate();
             return userTxt;
         } catch (SQLException e) {

@@ -4,8 +4,6 @@ import com.chedilong.event.controller.CompetitionController;
 import com.chedilong.event.entity.Competition;
 import com.chedilong.event.util.TxtJudgeUtil;
 
-import java.awt.EventQueue;
-
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.TitledBorder;
@@ -13,7 +11,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +22,7 @@ public class CompetitionAddInternalFrame extends JInternalFrame {
 	private JTextArea introductionTxt;
 
 	/**
-	 * Create the frame.
+	 * 赛事添加界面
 	 */
 	public CompetitionAddInternalFrame() {
 		setIconifiable(true);
@@ -125,7 +122,11 @@ public class CompetitionAddInternalFrame extends JInternalFrame {
 		JLabel lblNewLabel_4 = new JLabel("简介");
 		
 		introductionTxt = new JTextArea();
-		
+
+		//激活自动换行功能
+		introductionTxt.setLineWrap(true);
+		introductionTxt.setWrapStyleWord(true);
+
 		JLabel lblNewLabel_9 = new JLabel("元");
 		GroupLayout groupLayout_1 = new GroupLayout(panel);
 		groupLayout_1.setHorizontalGroup(

@@ -2,7 +2,6 @@ package com.chedilong.event.util;
 
 import com.chedilong.event.entity.Competition;
 import com.chedilong.event.entity.User;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.swing.*;
 import java.math.BigDecimal;
@@ -30,7 +29,7 @@ public class TxtJudgeUtil {
         }
         if(StringJudgeUtil.isEmpty(userTxt.getPassword())){
             JOptionPane.showMessageDialog(null, "密码不能为空！");
-            return true;
+            return false;
         }
         return true;
     }

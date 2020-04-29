@@ -5,8 +5,6 @@ import com.chedilong.event.entity.Competition;
 import com.chedilong.event.entity.User;
 import com.chedilong.event.util.StringJudgeUtil;
 
-import java.awt.EventQueue;
-
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.table.DefaultTableModel;
@@ -56,6 +54,13 @@ public class OrderManageInternalFrame extends JInternalFrame {
 				orderDeletePerformed(loginUser);
 			}
 		});
+		
+		JButton btnNewButton_2 = new JButton("刷新订单");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				refreshOrder(loginUser);
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -66,11 +71,13 @@ public class OrderManageInternalFrame extends JInternalFrame {
 						.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE))
 					.addContainerGap())
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(128)
+					.addGap(72)
 					.addComponent(btnNewButton)
-					.addPreferredGap(ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+					.addGap(70)
+					.addComponent(btnNewButton_2)
+					.addPreferredGap(ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
 					.addComponent(btnNewButton_1)
-					.addGap(107))
+					.addGap(55))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -82,7 +89,8 @@ public class OrderManageInternalFrame extends JInternalFrame {
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNewButton)
-						.addComponent(btnNewButton_1))
+						.addComponent(btnNewButton_1)
+						.addComponent(btnNewButton_2))
 					.addContainerGap(43, Short.MAX_VALUE))
 		);
 		
@@ -120,6 +128,9 @@ public class OrderManageInternalFrame extends JInternalFrame {
 		
 		introductionTxt = new JTextArea();
 		introductionTxt.setEditable(false);
+		//激活自动换行功能
+		introductionTxt.setLineWrap(true);
+		introductionTxt.setWrapStyleWord(true);
 		
 		JLabel label = new JLabel("元");
 		GroupLayout gl_panel = new GroupLayout(panel);
@@ -211,6 +222,13 @@ public class OrderManageInternalFrame extends JInternalFrame {
 		//初始化用户预约的赛事订单
 		initCompetitionTable(loginUser);
 
+	}
+
+	/**
+	 * 刷新订单信息
+	 */
+	private void refreshOrder(User loginUser) {
+		initCompetitionTable(loginUser);
 	}
 
 	/**

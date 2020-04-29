@@ -1,7 +1,5 @@
 package com.chedilong.event.controller;
 
-import com.chedilong.event.dao.UserDao;
-import com.chedilong.event.dao.impl.UserDaoImpl;
 import com.chedilong.event.entity.User;
 import com.chedilong.event.service.UserService;
 import com.chedilong.event.service.impl.UserServiceImpl;

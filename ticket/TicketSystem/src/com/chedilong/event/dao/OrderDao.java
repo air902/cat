@@ -1,7 +1,5 @@
 package com.chedilong.event.dao;
 
-import com.chedilong.event.entity.Order;
-
 import java.math.BigDecimal;
 import java.util.List;
 

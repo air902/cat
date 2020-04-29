@@ -2,7 +2,6 @@ package com.chedilong.event.dao;
 
 import com.chedilong.event.entity.Competition;
 
-import java.sql.Connection;
 import java.util.List;
 
 public interface CompetitionDao {

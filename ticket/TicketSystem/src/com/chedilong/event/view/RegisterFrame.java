@@ -4,13 +4,9 @@ import com.chedilong.event.controller.UserController;
 import com.chedilong.event.entity.User;
 import com.chedilong.event.util.TxtJudgeUtil;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.math.BigDecimal;

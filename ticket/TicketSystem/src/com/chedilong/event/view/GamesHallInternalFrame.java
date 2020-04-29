@@ -6,8 +6,6 @@ import com.chedilong.event.entity.Competition;
 import com.chedilong.event.entity.User;
 import com.chedilong.event.util.StringJudgeUtil;
 
-import java.awt.*;
-
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.border.TitledBorder;
@@ -144,6 +141,9 @@ public class GamesHallInternalFrame extends JInternalFrame {
 		
 		introductionTxt = new JTextArea();
 		introductionTxt.setEditable(false);
+		//激活自动换行功能
+		introductionTxt.setLineWrap(true);
+		introductionTxt.setWrapStyleWord(true);
 		
 		JLabel lblNewLabel_6 = new JLabel("价格");
 		

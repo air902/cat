@@ -3,9 +3,6 @@ package com.chedilong.event.view;
 import com.chedilong.event.controller.UserController;
 import com.chedilong.event.entity.User;
 import com.chedilong.event.util.StringJudgeUtil;
-import com.chedilong.event.util.TxtJudgeUtil;
-
-import java.awt.EventQueue;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;

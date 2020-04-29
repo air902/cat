@@ -1,13 +1,6 @@
 package com.chedilong.event.view;
 
 import com.chedilong.event.entity.User;
-import com.chedilong.event.view.GamesHallInternalFrame;
-import com.chedilong.event.view.OrderManageInternalFrame;
-import com.chedilong.event.view.UserInFoManageInternalFrame;
-import com.chedilong.event.view.UserWalletInternalFrame;
-
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

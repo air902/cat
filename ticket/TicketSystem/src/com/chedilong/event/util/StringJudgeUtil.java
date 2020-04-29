@@ -1,8 +1,5 @@
 package com.chedilong.event.util;
 
-
-import javax.swing.*;
-
 public class StringJudgeUtil {
     private void StringUtil() {
     }

@@ -4,8 +4,6 @@ import com.chedilong.event.controller.UserController;
 import com.chedilong.event.entity.User;
 import com.chedilong.event.util.TxtJudgeUtil;
 
-import java.awt.EventQueue;
-
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;

@@ -5,8 +5,6 @@ import com.chedilong.event.entity.Competition;
 import com.chedilong.event.util.StringJudgeUtil;
 import com.chedilong.event.util.TxtJudgeUtil;
 
-import java.awt.EventQueue;
-
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.table.DefaultTableModel;
@@ -180,6 +178,9 @@ public class CompetitionManageInternalFrame extends JInternalFrame {
 		JLabel lblNewLabel_7 = new JLabel("简   介");
 		
 		introductionTxt = new JTextArea();
+		//激活自动换行功能
+		introductionTxt.setLineWrap(true);
+		introductionTxt.setWrapStyleWord(true);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -358,6 +359,8 @@ public class CompetitionManageInternalFrame extends JInternalFrame {
 			timeTxt.setText(null);
 			priceTxt.setText(null);
 			competitionSelect = null;
+			//刷新表格
+			competitionSearchPerformed();
 		}
 	}
 
@@ -387,5 +390,13 @@ public class CompetitionManageInternalFrame extends JInternalFrame {
 				dtm.addRow(v);
 			}
 		}
+		//清空赛事详情框
+		competitionIdTxt.setText(null);
+		homeFieldTxt.setText(null);
+		visitingFieldTxt.setText(null);
+		introductionTxt.setText(null);
+		timeTxt.setText(null);
+		priceTxt.setText(null);
+		competitionSelect = null;
 	}
 }
