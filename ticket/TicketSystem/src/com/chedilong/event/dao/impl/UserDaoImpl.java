@@ -147,7 +147,6 @@ public class UserDaoImpl  implements UserDao {
             pstmt.setObject(1, userTxt.getName());
             pstmt.setObject(2,userTxt.getPassword());
             pstmt.setObject(3,userTxt.getId());
-            System.out.println("没有问题");
             pstmt.executeUpdate();
             return userTxt;
         } catch (SQLException e) {
