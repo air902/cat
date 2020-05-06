@@ -21,4 +21,12 @@ public interface PlayerDao {
      * @return
      */
     List<Player> userFind(String sql, List<Object> message);
+
+    /**
+     * 玩家个人信息申请驳回和玩家封禁
+     * @param sql
+     * @param message
+     * @return
+     */
+    int userBan(String sql,List<Object> message);
 }

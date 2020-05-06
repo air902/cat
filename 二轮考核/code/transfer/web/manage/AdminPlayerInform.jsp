@@ -6,95 +6,52 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ include file = "AdminMenu.jsp"%>
-<!--/sidebar-->
+<!--用户举报处理-->
 <div class="main-wrap">
     <div class="crumb-wrap">
-        <div class="crumb-list"><i class="icon-font"></i><a href="AdminIndex.jsp">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">作品管理</span></div>
+        <div class="crumb-list"><i class="icon-font"></i><a href="AdminIndex.jsp">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">举报信息管理</span></div>
     </div>
-    <div class="search-wrap">
-        <div class="search-content">
-            <form action="#" method="post">
-                <table class="search-tab">
-                    <tr>
-                        <th width="120">选择分类:</th>
-                        <td>
-                            <select name="search-sort" id="">
-                                <option value="">全部</option>
-                                <option value="19">精品界面</option><option value="20">推荐界面</option>
-                            </select>
-                        </td>
-                        <th width="70">关键字:</th>
-                        <td><input class="common-text" placeholder="关键字" name="keywords" value="" id="" type="text"></td>
-                        <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-    </div>
-    <div class="result-wrap">
-        <form name="myform" id="myform" method="post">
-            <div class="result-title">
-                <div class="result-list">
-                    <a href="insert.html"><i class="icon-font"></i>新增作品</a>
-                    <a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
-                    <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a>
-                </div>
-            </div>
             <div class="result-content">
+                <td><input class="intro" type="hidden" name="cp" value=1 /></td>
                 <table class="result-tab" width="100%">
                     <tr>
-                        <th class="tc" width="5%"><input class="allChoose" name="" type="checkbox"></th>
-                        <th>排序</th>
-                        <th>ID</th>
-                        <th>标题</th>
-                        <th>审核状态</th>
-                        <th>点击</th>
-                        <th>发布人</th>
-                        <th>更新时间</th>
-                        <th>评论</th>
+                        <th>用户id</th>
+                        <th>用户账号</th>
+                        <th>用户姓名</th>
+                        <th>举报理由</th>
                         <th>操作</th>
                     </tr>
-                    <tr>
-                        <td class="tc"><input name="id[]" value="59" type="checkbox"></td>
-                        <td>
-                            <input name="ids[]" value="59" type="hidden">
-                            <input class="common-input sort-input" name="ord[]" value="0" type="text">
-                        </td>
-                        <td>59</td>
-                        <td title="发哥经典"><a target="_blank" href="#" title="发哥经典">发哥经典</a> …
-                        </td>
-                        <td>0</td>
-                        <td>2</td>
-                        <td>admin</td>
-                        <td>2014-03-15 21:11:01</td>
-                        <td></td>
-                        <td>
-                            <a class="link-update" href="#">修改</a>
-                            <a class="link-del" href="#">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tc"><input name="id[]" value="58" type="checkbox"></td>
-                        <td>
-                            <input name="ids[]" value="58" type="hidden">
-                            <input class="common-input sort-input" name="ord[]" value="0" type="text">
-                        </td>
-                        <td>58</td>
-                        <td title="黑色经典"><a target="_blank" href="#" title="黑色经典">黑色经典</a> …
-                        </td>
-                        <td>0</td>
-                        <td>35</td>
-                        <td>admin</td>
-                        <td>2013-12-30 22:34:00</td>
-                        <td></td>
-                        <td>
-                            <a class="link-update" href="#">修改</a>
-                            <a class="link-del" href="#">删除</a>
-                        </td>
-                    </tr>
+                    <c:forEach var="p" items="${playerList}">
+                        <tr>
+                            <td>${p.id}</td>
+                            <th>${p.account}</th>
+                            <td>${p.name}</td>
+                            <td>${p.reason}</td>
+                            <td>
+                                <a class="link-del" href="javascript:userWarn('你确定封禁用户【${p.name}】吗?','${pageContext.request.contextPath}/manager/AdminPlayerBanServlet?banPlayer=${p.id}&cp=${currentPage}&operation=封禁&sub=查询')">封禁</a>
+                                <a class="link-update" href="javascript:userWarn('你确定驳回用户【${p.name}】举报吗?','${pageContext.request.contextPath}/manager/AdminThroughApplicationServlet?throughPlayer=${p.account}&cp=${currentPage}&sub=查询')">驳回</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+
+                    <script>
+                        function userWarn(mess,url){
+                            if(confirm(mess)){
+                                location.href=url;
+                            }
+                        }
+                    </script>
                 </table>
-                <div class="list-page"> 2 条 1/1 页</div>
+                <div class="list-page">
+                    共 ${totalRecord} 条记录，当前${currentPage}/${totalPage} 页
+                    <a href="${pageContext.request.contextPath}/manager/AdminPlayerInformFindServlet?cp=1">首页</a>
+                    <a href="${pageContext.request.contextPath}/manager/AdminPlayerInformFindServlet?cp=${currentPage-1<1?1:currentPage-1}">上一页</a>
+                    <a href="${pageContext.request.contextPath}/manager/AdminPlayerInformFindServlet?cp=${currentPage+1>totalPage?totalPage:currentPage+1}">下一页</a>
+                    <a href="${pageContext.request.contextPath}/manager/AdminPlayerInformFindServlet?cp=${totalPage}">尾页</a>
+                </div>
             </div>
         </form>
     </div>

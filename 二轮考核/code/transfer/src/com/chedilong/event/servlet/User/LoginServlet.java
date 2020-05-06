@@ -16,56 +16,50 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/transfer/front/LoginServlet")
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=utf-8");
-        String userName = request.getParameter("name");
-        String password = request.getParameter("password");
-        String rank = request.getParameter("rank");
-        System.out.println("buzhou1");
+            request.setCharacterEncoding("UTF-8");
+            response.setContentType("text/html;charset=utf-8");
+            String userName = request.getParameter("name");
+            String password = request.getParameter("password");
+            String rank = request.getParameter("rank");
 
+            if(rank.equals("玩家")){
+                //玩家登录
+                PlayerService playerService=new PlayerServiceImpl();
+                Player result = playerService.login(userName,password);
+                if(result!=null){
+                    HttpSession session=request.getSession();
+                    session.setAttribute("user",result);
+                    //标记位，标记用户是否登录成功
+                    session.setAttribute("isLogin",1);
+                    response.sendRedirect("/transfer_war_exploded/front/index.jsp");
+                }else{
+                    PrintWriter out=response.getWriter();
+                    out.write("<script>");
+                    out.write("alert('用户登录失败');");
+                    out.write("location.href='/transfer_war_exploded/front/Login.jsp'");
+                    out.write("</script>");
+//                    out.println("登录失败");
+                }
+            }else {
+                //战队管理层和超级管理员登录
+                ManagerService managerService = new ManagerServiceImpl();
+                Manager result = managerService.login(userName, password, rank);
 
-        if(rank.equals("玩家")){
-            System.out.println("玩家");
-            //玩家登录
-            PlayerService playerService=new PlayerServiceImpl();
-            Player result = playerService.login(userName,password);
-            if(result!=null){
-                HttpSession session=request.getSession();
-                session.setAttribute("user",result);
-                //标记位，标记用户是否登录成功
-                session.setAttribute("isLogin",1);
-                response.sendRedirect("index.jsp");
-            }else{
-                PrintWriter out=response.getWriter();
-                out.write("<script>");
-                out.write("alert('登录失败！')");
-                out.write("location.href='login.jsp'");
-                out.write("</script>");
+                if (result != null) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("user", result);
+                    //标记位，标记用户是否登录成功
+                    session.setAttribute("isAdminLogin", 1);
+                    response.sendRedirect("/transfer_war_exploded/manage/AdminIndex.jsp");
+                } else {
+                    PrintWriter out = response.getWriter();
+                    out.println("登录失败");
+                }
             }
-        }else{
-            //战队管理层和超级管理员登录
-            ManagerService managerService=new ManagerServiceImpl();
-            Manager result=managerService.login(userName,password,rank);
-            if(result!=null){
-                HttpSession session=request.getSession();
-                session.setAttribute("user",result);
-                //标记位，标记用户是否登录成功
-                session.setAttribute("isLogin",1);
-                response.sendRedirect("index.jsp");
-            }else{
-                PrintWriter out=response.getWriter();
-                out.write("<script>");
-                out.write("alert('登录失败！')");
-                out.write("location.href='login.jsp'");
-                out.write("</script>");
-            }
-        }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }

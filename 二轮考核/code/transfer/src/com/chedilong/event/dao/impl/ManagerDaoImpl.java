@@ -62,16 +62,17 @@ public class ManagerDaoImpl implements ManagerDao {
                 pstmt.setObject(i + 1, object);
             }
             rs = pstmt.executeQuery();
-            while (rs != null) {
+            while (rs.next()) {
                  Manager manager = new Manager(
                          rs.getInt("id"),
                          rs.getString("account"),
                          null,
-                         rs.getString("account"),
                          rs.getString("portrait"),
                          rs.getString("name"),
-                         rs.getString("age"),
-                         rs.getString("rank"));
+                         rs.getInt("age"),
+                         rs.getString("rank"),
+                         rs.getInt("amount"),
+                         rs.getString("team"));
                          result.add(manager);
                 }
             return result;

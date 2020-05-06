@@ -20,10 +20,10 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 9.0.34" level="application_server_libraries" />
-    <orderEntry type="library" name="mysql-connector-java-8.0.19" level="project" />
     <orderEntry type="library" name="commons-email-1.5" level="project" />
     <orderEntry type="library" name="mail-1.4.7" level="project" />
     <orderEntry type="library" name="jstl-1.2" level="project" />
     <orderEntry type="library" name="servlet-api-5.5.23" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.42-bin" level="project" />
   </component>
 </module>

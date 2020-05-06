@@ -11,7 +11,7 @@ public class DatabaseConnectionUtil {
     private DatabaseConnectionUtil(){}
 
     //绑定属性配置资源文件
-    static ResourceBundle bunder = ResourceBundle.getBundle("userData");
+    static ResourceBundle bunder = ResourceBundle.getBundle("UserData");
     static String driver = bunder.getString("driver");
     static String url = bunder.getString("url");
     static String user = bunder.getString("user");

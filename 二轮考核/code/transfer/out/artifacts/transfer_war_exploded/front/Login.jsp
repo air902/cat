@@ -16,7 +16,7 @@
 </head>
 <body><!-------------------login-------------------------->
 <div class="login">
-    <form action="/transfer/front/LoginServlet" method="post"><h1><a href="index.jsp"><img src="img/temp/logo.png"></a></h1>
+    <form action="${pageContext.request.contextPath}/LoginServlet" method="post"><h1><a href="index.jsp"><img src="img/temp/logo.png"></a></h1>
         <p></p>
         <div class="msg-warn hide"><b></b>公共场所不建议自动登录，以防账号丢失</div>
         <p><input type="text" name="name" value="" placeholder="账号"></p>

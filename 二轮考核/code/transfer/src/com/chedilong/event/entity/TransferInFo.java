@@ -1,5 +1,7 @@
 package com.chedilong.event.entity;
 
+import java.math.BigDecimal;
+
 /**
  * 转会信息实体类
  */
@@ -8,11 +10,12 @@ public class TransferInFo {
     private Integer playerId;
     private String portrait;
     private String playerName;
-    private String price;
+    private BigDecimal price;
     private String classify;
     private String status;
+    private String reason;
 
-    public TransferInFo(Integer id, Integer playerId, String portrait, String playerName, String price, String classify, String status) {
+    public TransferInFo(Integer id, Integer playerId, String portrait, String playerName, BigDecimal price, String classify, String status,String reason) {
         this.id = id;
         this.playerId = playerId;
         this.portrait = portrait;
@@ -20,6 +23,7 @@ public class TransferInFo {
         this.price = price;
         this.classify = classify;
         this.status = status;
+        this.reason = reason;
     }
     public TransferInFo(){}
 
@@ -55,11 +59,11 @@ public class TransferInFo {
         this.playerName = playerName;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -77,5 +81,13 @@ public class TransferInFo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

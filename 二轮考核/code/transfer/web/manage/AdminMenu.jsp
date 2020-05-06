@@ -26,9 +26,7 @@
         </div>
         <div class="top-info-wrap">
             <ul class="top-info-list clearfix">
-                <li><a href="#">管理员</a></li>
-                <li><a href="#">修改密码</a></li>
-                <li><a href="#">退出</a></li>
+                <li><a href="/transfer_war_exploded/manager/AdminLogoutServlet">退出</a></li>
             </ul>
         </div>
     </div>
@@ -43,9 +41,9 @@
                 <li>
                     <a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
                     <ul class="sub-menu">
-                        <li><a href="AdminPlayerInFo.jsp"><i class="icon-font">&#xe008;</i>选手管理</a></li>
-                        <li><a href="AdminTransferInFo.jsp"><i class="icon-font">&#xe005;</i>转会信息管理</a></li>
-                        <li><a href="AdminPlayerInform.jsp"><i class="icon-font">&#xe005;</i>举报信息管理</a></li>
+                        <li><a href="/transfer_war_exploded/manager/AdminPlayerInFoFindServlet"><i class="icon-font">&#xe008;</i>选手信息管理</a></li>
+                        <li><a href="/transfer_war_exploded/manager/AdminDoTransferFindServlet"><i class="icon-font">&#xe005;</i>转会信息管理</a></li>
+                        <li><a href="/transfer_war_exploded/manager/AdminPlayerInformFindServlet"><i class="icon-font">&#xe005;</i>举报信息管理</a></li>
                     </ul>
                 </li>
             </ul>

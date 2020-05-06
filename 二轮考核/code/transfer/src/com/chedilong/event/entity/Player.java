@@ -17,8 +17,9 @@ public class Player {
     private String accountStatus;
     private String teamStatus;
     private String rank;
+    private String reason;
 
-    public Player(Integer id, String account, String password, String portrait, String name, Integer age, String introduction, String lastTeam, String joinDate, String email, String accountStatus, String teamStatus, String rank) {
+    public Player(Integer id, String account, String password, String portrait, String name, Integer age, String introduction, String lastTeam, String joinDate, String email, String accountStatus, String teamStatus, String rank, String reason) {
         this.id = id;
         this.account = account;
         this.password = password;
@@ -32,7 +33,9 @@ public class Player {
         this.accountStatus = accountStatus;
         this.teamStatus = teamStatus;
         this.rank = rank;
+        this.reason = reason;
     }
+
     public Player(){}
 
     public Integer getId() {
@@ -121,6 +124,14 @@ public class Player {
 
     public void setAccountStatus(String accountStatus) {
         this.accountStatus = accountStatus;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public String getTeamStatus() {

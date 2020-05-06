@@ -14,12 +14,6 @@ public class Email {
     private static String emailFrom = bunder.getString("emailFrom");
     private static String emailPassword = bunder.getString("emailPassword");
 
-    public static void main(String[] args) {
-        String code = sendEmail("chedilong1117@163.com");
-        if(code != null){
-            System.out.println("发送成功");
-        }
-    }
     /**
      * 发送邮箱验证码
      * @param emailTo

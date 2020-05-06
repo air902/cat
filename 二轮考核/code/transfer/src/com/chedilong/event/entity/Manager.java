@@ -9,11 +9,12 @@ public class Manager {
     private String password;
     private String portrait;
     private String name;
-    private String age;
+    private Integer age;
     private String rank;
-    private String amount;
+    private Integer amount;
+    private String team;
 
-    public Manager(Integer id, String account, String password, String portrait, String name, String age, String rank, String amount) {
+    public Manager(Integer id, String account, String password, String portrait, String name, Integer age, String rank, Integer amount,String team) {
         this.id = id;
         this.account = account;
         this.password = password;
@@ -22,6 +23,7 @@ public class Manager {
         this.age = age;
         this.rank = rank;
         this.amount = amount;
+        this.team = team;
     }
     public Manager(){}
 
@@ -65,11 +67,11 @@ public class Manager {
         this.name = name;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -81,11 +83,19 @@ public class Manager {
         this.rank = rank;
     }
 
-    public String getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
     }
 }

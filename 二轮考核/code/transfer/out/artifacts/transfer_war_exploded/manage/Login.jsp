@@ -12,26 +12,36 @@
     <meta charset="UTF-8"/>
     <title>LPL转会系统后台管理</title>
     <link rel="stylesheet" type="text/css" href="css/admin_login.css"/>
+    <script type="text/javascript" src="js/md5.js"></script>
 </head>
 <body>
 <div class="admin_login_wrap">
     <h1>后台管理</h1>
     <div class="adming_login_border">
         <div class="admin_input">
-            <form action="index.html" method="post">
+            <form action="${pageContext.request.contextPath}/LoginServlet" method="post" onsubmit="return encrypt()">
                 <ul class="admin_items">
                     <li>
-                        <label for="user">用户名：</label>
-                        <input type="text" name="username" value="admin" id="user" size="40" class="admin_input_style" />
+                        <label for="user">账号：</label>
+                        <input type="text" name="name" value="" id="user" size="40" class="admin_input_style" />
+                        <input type="hidden" name="rank"  value="超级管理员"/>
                     </li>
                     <li>
-                        <label for="pwd">密码：</label>
-                        <input type="password" name="pwd" value="admin" id="pwd" size="40" class="admin_input_style" />
+                        <label for="input_pwd">密码：</label>
+                        <input type="password"  value="" id="input_pwd" size="40" class="admin_input_style" />
+                        <input type="hidden" name="password"  id = 'md5_pwd' value=""/>
                     </li>
                     <li>
                         <input type="submit" tabindex="3" value="提交" class="btn btn-primary" />
                     </li>
                 </ul>
+                <script>
+                    function encrypt(){
+                        var input_pwd = document.getElementById("input_pwd");
+                        var md5_pwd = document.getElementById("md5_pwd");
+                        md5_pwd.value = hex_md5(input_pwd.value);
+                    }
+                </script>
             </form>
         </div>
     </div>

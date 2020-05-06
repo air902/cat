@@ -60,7 +60,7 @@ public class PlayerDaoImpl implements PlayerDao {
                 pstmt.setObject(i + 1, object);
             }
             rs = pstmt.executeQuery();
-            while (rs != null) {
+            while (rs.next()) {
                 //封装获取到的玩家信息
                 Player player = new Player(
                         rs.getInt("id"),
@@ -75,7 +75,8 @@ public class PlayerDaoImpl implements PlayerDao {
                         rs.getString("email"),
                         rs.getString("accountStatus"),
                         rs.getString("teamStatus"),
-                        rs.getString("rank"));
+                        rs.getString("rank"),
+                        rs.getString("reason"));
                 result.add(player);
             }
             return result;
@@ -84,6 +85,50 @@ public class PlayerDaoImpl implements PlayerDao {
             return null;
         } finally {
             DatabaseConnectionUtil.close(con, pstmt, rs);
+        }
+    }
+
+    /**
+     * 玩家个人信息申请驳回和玩家封禁
+     *
+     * @param sql
+     * @param message
+     * @return
+     */
+    @Override
+    public int userBan(String sql, List<Object> message) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        int result = 0;
+        String trasnferSql = "update transferinfo set status = '审核不通过',reason = '个人信息被驳回或账号曾被封禁'  where playerId = ?";
+        try{
+            con = DatabaseConnectionUtil.getConnection();
+            con.setAutoCommit(false);
+            //修改玩家表
+            pstmt = con.prepareStatement(sql);
+            for(int i = 0;i<message.size();i++){
+                Object object = message.get(i);
+                pstmt.setObject(i+1, object);
+            }
+            result = pstmt.executeUpdate();
+            //修改转会信息表
+            pstmt = con.prepareStatement(trasnferSql);
+            pstmt.setObject(1, message.get(1));
+            result += pstmt.executeUpdate();
+            con.commit();
+            return  result;
+        }catch(SQLException e){
+            if(con != null){
+                try {
+                    con.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+            return 0;
+        }finally {
+            DatabaseConnectionUtil.close(con,pstmt,null);
         }
     }
 }

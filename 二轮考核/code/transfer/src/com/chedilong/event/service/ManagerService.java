@@ -12,4 +12,11 @@ public interface ManagerService {
      * @return
      */
     Manager login(String name, String password, String rank);
+
+    /**
+     * 战队管理层注册
+     * @param manager
+     * @return
+     */
+    int register(Manager manager);
 }
